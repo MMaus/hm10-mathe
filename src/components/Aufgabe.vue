@@ -8,7 +8,7 @@
     <div class="input-group mb-2 p-1">
       <label class="lead p-2">{{aufgabe}}</label>
       <input
-        type="text"
+        type="number"
         class="form-control"
         id="eingabe"
         ref="eingabe"
