@@ -3,17 +3,41 @@
     <div class="jumbotron">
       <h3>Kopfrechnen - Malaufgaben</h3>
     </div>
-    <Aufgabe v-for="agf in aufgaben_mal" :key="agf.idx" :aufgabe="agf.txt" :ergebnis="agf.ergebnis" />
+    <Aufgabe
+      v-for="agf in aufgaben_mal"
+      :key="agf.idx"
+      :ref="'aufgabe' + agf.idx"
+      :aufgabe="agf.txt"
+      :ergebnis="agf.ergebnis"
+      :aufgabenNr="agf.idx"
+      @richtig="logRichtig"
+    />
 
     <div class="jumbotron">
       <h3>Kopfrechnen - Plusaufgaben</h3>
     </div>
-    <Aufgabe v-for="agf in aufgaben_plus" :key="agf.idx" :aufgabe="agf.txt" :ergebnis="agf.ergebnis" />
+    <Aufgabe
+      v-for="agf in aufgaben_plus"
+      :ref="'aufgabe' + agf.idx"
+      :key="agf.idx"
+      :aufgabe="agf.txt"
+      :ergebnis="agf.ergebnis"
+      :aufgabenNr="agf.idx"
+      @richtig="logRichtig"
+    />
 
     <div class="jumbotron">
       <h3>Kopfrechnen - Minusaufgaben</h3>
     </div>
-    <Aufgabe v-for="agf in aufgaben_minus" :key="agf.idx" :aufgabe="agf.txt" :ergebnis="agf.ergebnis" />
+    <Aufgabe
+      v-for="agf in aufgaben_minus"
+      :ref="'aufgabe' + agf.idx"
+      :key="agf.idx"
+      :aufgabe="agf.txt"
+      :ergebnis="agf.ergebnis"
+      :aufgabenNr="agf.idx"
+      @richtig="logRichtig"
+    />
   </div>
 </template>
 
@@ -99,6 +123,17 @@ export default class App extends Vue {
   aufgaben_mal = malAufgaben;
   aufgaben_plus = plusAufgaben;
   aufgaben_minus = minusAufgaben;
+
+  logRichtig(doneId: number) {
+    console.log("master: correct, got event:" + event + " and id:" + doneId);
+    const nextId = doneId + 1;
+    const theNext = (this.$refs["aufgabe" + nextId] as Array<Aufgabe>)[0];
+    console.log("identfied theNext");
+    console.log("identfied as array?" + Array.isArray(theNext));
+    console.log("theNext = " + theNext);
+    console.log("theNext.setFocus = " + theNext.letzteEingabe);
+    theNext.setFocus();
+  }
 }
 </script>
 

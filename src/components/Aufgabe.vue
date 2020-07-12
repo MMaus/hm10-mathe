@@ -35,6 +35,7 @@ import { Component, Prop, Vue, Ref } from "vue-property-decorator";
 export default class Aufgabe extends Vue {
   @Prop() private aufgabe!: string;
   @Prop() private ergebnis!: number;
+  @Prop() private aufgabenNr!: number;
 
   @Ref("eingabe") eingabe!: HTMLInputElement;
 
@@ -56,15 +57,13 @@ export default class Aufgabe extends Vue {
       this.eingabe.value="";
     } else {
       this.info = "richtig!";
+      this.$emit("richtig", this.aufgabenNr)
     }
-    console.log(
-      "Richtig = " +
-        this.richtig +
-        ", weil " +
-        eingabeNr +
-        " ?= " +
-        this.ergebnis
-    );
+  }
+
+  public setFocus(): void {
+    console.log("WANNA FOCUS");
+    this.eingabe.focus()
   }
 
   isWarn(): boolean {
